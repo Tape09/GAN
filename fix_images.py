@@ -61,7 +61,7 @@ for i,fn in enumerate(all_images_fn):
 	img = cv2.imread(fn)
 	img = resize_crop(img,cropsize);
 	cv2.imwrite(directory+"/"+str(i)+".png",img);
-	print("\r"+str(i)+"/"+str(len(all_images_fn)),end="\r")
+	print("\r "+str(i)+"/"+str(len(all_images_fn)),end="\r")
 
 
 
