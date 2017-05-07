@@ -1,13 +1,8 @@
 *.pyc
-data/
-data*/
+/data/
+/data*/
 
-
-
-
-
-
-
-
-
-
+/discriminator_weights
+/generator_weights
+/playground.py
+/results/
