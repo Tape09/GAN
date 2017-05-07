@@ -23,7 +23,7 @@ def resize_crop(img, x):
 		crop_w1 = x
 		crop_h0 = int((new_h - x) / 2)
 		crop_h1 = crop_h0 + x
-		
+
 	img = cv2.resize(img,(new_w,new_h),interpolation = cv2.INTER_AREA)
 	img = img[crop_h0:crop_h1,crop_w0:crop_w1]
 	return img
@@ -51,10 +51,6 @@ def main():
 if __name__=="__main__":
 	main()
 
-
-
-
-# cv2.imwrite('messigray.png',img)
 
 
 
