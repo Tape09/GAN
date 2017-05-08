@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd8dcec1-5229-4d32-83bf-3dbd67bf5895" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/GAN.iml" afterPath="$PROJECT_DIR$/.idea/GAN.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/0.jpg" afterPath="$PROJECT_DIR$/0.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/1.jpg" afterPath="$PROJECT_DIR$/1.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Epoch_0.png" afterPath="$PROJECT_DIR$/Epoch_0.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Epoch_1.png" afterPath="$PROJECT_DIR$/Epoch_1.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GAN_train.py" afterPath="$PROJECT_DIR$/GAN_train.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,7 +19,7 @@
     <SUITE FILE_PATH="coverage/GAN$model.coverage" NAME="model Coverage Results" MODIFIED="1494159075686" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GAN$playground.coverage" NAME="playground Coverage Results" MODIFIED="1493900338153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GAN$fix_images.coverage" NAME="fix_images Coverage Results" MODIFIED="1493897938508" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/GAN$GAN_train.coverage" NAME="GAN_train Coverage Results" MODIFIED="1494219738598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GAN$GAN_train.coverage" NAME="GAN_train Coverage Results" MODIFIED="1494237440108" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -33,7 +34,6 @@
               <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-                <marker date="1494174831550" expanded="true" signature="579:1132" ph="..." />
               </folding>
             </state>
           </provider>
@@ -42,7 +42,7 @@
       <file leaf-file-name="GAN_models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GAN_models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1054">
+            <state relative-caret-position="1156">
               <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -52,30 +52,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GAN_train.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GAN_train.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GAN_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-38">
-              <caret line="138" column="0" lean-forward="true" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
+            <state relative-caret-position="407">
+              <caret line="126" column="53" lean-forward="false" selection-start-line="126" selection-start-column="53" selection-end-line="126" selection-end-column="53" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
                 <element signature="e#220#401#0" expanded="false" />
-                <element signature="e#700#783#0" expanded="false" />
-                <element signature="e#5990#6416#0" expanded="false" />
+                <element signature="e#445#673#0" expanded="false" />
+                <element signature="e#807#936#0" expanded="false" />
+                <element signature="e#2238#2589#0" expanded="false" />
+                <element signature="e#6002#6428#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="0.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/0.jpg">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="1.jpg" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/1.jpg">
+      <file leaf-file-name="Epoch_2.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Epoch_2.png">
           <provider selected="true" editor-type-id="images">
             <state />
           </provider>
@@ -83,13 +78,6 @@
       </file>
       <file leaf-file-name="Epoch_0.png" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Epoch_0.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Epoch_1.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Epoch_1.png">
           <provider selected="true" editor-type-id="images">
             <state />
           </provider>
@@ -503,7 +491,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -511,7 +499,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12633263" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -555,7 +543,6 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <marker date="1494174831550" expanded="true" signature="579:1132" ph="..." />
           </folding>
         </state>
       </provider>
@@ -578,8 +565,10 @@
           <folding>
             <element signature="e#0#15#0" expanded="true" />
             <element signature="e#220#401#0" expanded="false" />
-            <element signature="e#700#783#0" expanded="false" />
-            <element signature="e#5990#6416#0" expanded="false" />
+            <element signature="e#445#673#0" expanded="false" />
+            <element signature="e#807#936#0" expanded="false" />
+            <element signature="e#2238#2589#0" expanded="false" />
+            <element signature="e#6002#6428#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -598,7 +587,6 @@
           <caret line="40" column="30" lean-forward="false" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <marker date="1494174831550" expanded="true" signature="579:1132" ph="..." />
           </folding>
         </state>
       </provider>
@@ -628,7 +616,6 @@
           <caret line="40" column="30" lean-forward="false" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <marker date="1494174831550" expanded="true" signature="579:1132" ph="..." />
           </folding>
         </state>
       </provider>
@@ -658,7 +645,6 @@
           <caret line="8" column="12" lean-forward="true" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <marker date="1494174831550" expanded="true" signature="579:1132" ph="..." />
           </folding>
         </state>
       </provider>
@@ -681,20 +667,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fix_images.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <marker date="1494174831550" expanded="true" signature="579:1132" ph="..." />
-          </folding>
-        </state>
+    <entry file="file://$PROJECT_DIR$/1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Epoch_0.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/GAN_models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1054">
+        <state relative-caret-position="1156">
           <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -703,25 +688,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Epoch_0.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Epoch_1.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GAN_train.py">
+    <entry file="file://$PROJECT_DIR$/fix_images.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-38">
-          <caret line="138" column="0" lean-forward="true" selection-start-line="138" selection-start-column="0" selection-end-line="138" selection-end-column="0" />
+        <state relative-caret-position="621">
+          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
-            <element signature="e#220#401#0" expanded="false" />
-            <element signature="e#700#783#0" expanded="false" />
-            <element signature="e#5990#6416#0" expanded="false" />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -731,9 +703,29 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/1.jpg">
+    <entry file="file://$PROJECT_DIR$/Epoch_1.png">
       <provider selected="true" editor-type-id="images">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Epoch_2.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GAN_train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="126" column="53" lean-forward="false" selection-start-line="126" selection-start-column="53" selection-end-line="126" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#220#401#0" expanded="false" />
+            <element signature="e#445#673#0" expanded="false" />
+            <element signature="e#807#936#0" expanded="false" />
+            <element signature="e#2238#2589#0" expanded="false" />
+            <element signature="e#6002#6428#0" expanded="false" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>

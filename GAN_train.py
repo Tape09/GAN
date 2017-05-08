@@ -36,16 +36,12 @@ def chunks(l, n):
         yield i,l[i:i+n]
         # yield l[i:i+n]
 def train(paths, batch_size, EPOCHS):
-
     #reproducibility
     #np.random.seed(42)
 
     fig = plt.figure()
-
     IMAGES = load_shuffle(paths)
-
-
-    BATCHES = [ b for b in chunks(IMAGES, batch_size) ]
+    # BATCHES = [ b for b in chunks(IMAGES, batch_size) ]
 
     discriminator = GAN_models.discriminator()
     generator = GAN_models.generator()
@@ -53,8 +49,8 @@ def train(paths, batch_size, EPOCHS):
     #try default params setting
     # adam_gen = Adam()
     # adam_dis = Adam()
-    adam_gen=Adam(lr=0.00002, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
-    adam_dis=Adam(lr=0.00002, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
+    adam_gen=Adam(lr=0.00001, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
+    adam_dis=Adam(lr=0.00001, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
     generator.compile(loss='binary_crossentropy', optimizer=adam_gen)
     discriminator_on_generator.compile(loss='binary_crossentropy', optimizer=adam_gen)
     discriminator.trainable = True
@@ -65,7 +61,7 @@ def train(paths, batch_size, EPOCHS):
 
     #margin = 0.25
     #equilibrium = 0.6931
-    inter_model_margin = 0.25
+    inter_model_margin = 0.1
 
     for epoch in range(EPOCHS):
         print("Epoch {}".format(epoch))
@@ -123,15 +119,15 @@ def train(paths, batch_size, EPOCHS):
 
             print("Final batch losses (after updates) : G", "Generator loss", g_loss, "Discriminator loss", d_loss, "Total:", g_loss + d_loss)
 
-            if (index+1) % 20 == 0:
-                print('Saving weights..')
-                generator.save_weights('generator_weights', True)
-                discriminator.save_weights('discriminator_weights', True)
+        print('Epoch {} ,Saving weights..'.format(epoch))
+        generator.save_weights('generator_weights', True)
+        discriminator.save_weights('discriminator_weights', True)
 
         plt.clf()
         for i, img in enumerate(generated_images[:9]):
             i = i+1
             plt.subplot(3, 3, i)
+            img =np.uint8(255 * 0.5 * (img + 1.0))
             plt.imshow(img)
             plt.axis('off')
         fig.canvas.draw()
@@ -142,7 +138,7 @@ def generate(img_num):
         Generate new images based on trained model.
     '''
     generator = GAN_models.generator()
-    adam=Adam(lr=0.00002, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
+    adam=Adam(lr=0.00001, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
     generator.compile(loss='binary_crossentropy', optimizer=adam)
     generator.load_weights('generator_weights')
 
@@ -167,7 +163,7 @@ def get_args():
 
 if __name__ == "__main__":
     # load_image('data128/0.png')
-    # train('data128/',batch_size=64,EPOCHS=20)
+    train('data128/',batch_size=64,EPOCHS=20)
     generate(2)
 
     # args = get_args()
