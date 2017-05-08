@@ -25,10 +25,13 @@ def load_shuffle(paths,tail='*.png'):
     print("Loading completed")
     return IMAGES
 
-def generate_code():
+def generate_code(n=100):
     #latent code for generating pics
-    z = np.random.uniform(-1, 1, 100)
+    z = np.random.uniform(-1, 1, n)
     return z
+
+def generate_code_batch(batch_size):
+
 
 def chunks(l, n):
     """Yield successive n-sized chunks from l."""

@@ -7,18 +7,23 @@ from sklearn.utils import shuffle
 
 def discriminator():
     model = Sequential()
+    #1->(64,64,128)
     model.add(Convolution2D(128, (5, 5), strides=(2, 2), input_shape=(128, 128, 3), padding='same'))
     model.add(LeakyReLU(0.2))
     model.add(Dropout(0.2))
+    #2->(32,32,256)
     model.add(Convolution2D(256, (5, 5), strides=(2, 2), padding='same'))
     model.add(LeakyReLU(0.2))
     model.add(Dropout(0.2))
+    #3->(16,16,512),one filter:5*5*256, 512 filters in total
     model.add(Convolution2D(512, (5, 5), strides=(2, 2), padding='same'))
     model.add(LeakyReLU(0.2))
     model.add(Dropout(0.2))
+    #4->(8,8,1024)
     model.add(Convolution2D(1024, (5, 5), strides=(2, 2), padding='same'))
     model.add(LeakyReLU(0.2))
     model.add(Dropout(0.2))
+    #final
     model.add(Flatten())
     model.add(Dense(units=1))
     model.add(Activation('sigmoid'))
@@ -74,8 +79,11 @@ def generator_containing_discriminator(generator, discriminator):
     return model
 
 def main():
-    model = discriminator()
-    # model = generator()
+    D = discriminator()
+    G = generator()
+    model = generator_containing_discriminator(G,D)
+    G.summary()
+    D.summary()
     model.summary()
 
 if __name__=="__main__":
