@@ -1,7 +1,7 @@
 *.pyc
 /data/
 /data*/
-
+/.idea
 /discriminator_weights
 /generator_weights
 /playground.py

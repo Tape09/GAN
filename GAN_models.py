@@ -26,7 +26,7 @@ def discriminator():
     #final
     model.add(Flatten())
     model.add(Dense(units=1))
-    model.add(Activation('sigmoid'))
+    # model.add(Activation('sigmoid'))
     return model
 
 def generator(inputdim=100, xdim=4, ydim=4):
@@ -34,7 +34,7 @@ def generator(inputdim=100, xdim=4, ydim=4):
     #pre
     model.add(Dense(input_dim=inputdim, units=1024 * xdim * ydim))
     #1
-    model.add(BatchNormalization())
+    model.add(BatchNormalization())#batch norm in G can cause strong intra-class correlation
     model.add(Activation('relu'))
     model.add(Reshape((xdim, ydim,1024), input_shape=(inputdim,)))
     model.add(UpSampling2D(size=(2, 2)))
