@@ -2,7 +2,7 @@ import argparse
 import cv2
 import os
 import glob
-import GAN_models
+import GAN_models_64 as GAN_models
 import matplotlib.pyplot as plt
 import numpy as np
 from keras.optimizers import Adam
@@ -99,15 +99,16 @@ def train(paths, batch_size, EPOCHS):
             generated_images = generator.predict(Noise_batch)
             # for i, img in enumerate(generated_images):
             #     cv2.imwrite('results/{}.jpg'.format(i), np.uint8(255 * 0.5 * (img + 1.0)))
+            image_val = 0.9
 
             Xd = np.concatenate((image_batch, generated_images))
-            yd = [1] * len(image_batch) + [0] * len(image_batch) # labels
+            yd = [image_val] * len(image_batch) + [0] * len(image_batch) # labels
 
             # print("Training first discriminator..")
             d_loss = discriminator.train_on_batch(Xd, yd)
 
             Xg = Noise_batch
-            yg = [1] * len(image_batch)
+            yg = [image_val] * len(image_batch)
 
             # print("Training first generator..")
             g_loss = discriminator_on_generator.train_on_batch(Xg, yg)
@@ -135,8 +136,8 @@ def train(paths, batch_size, EPOCHS):
             print("Final batch losses (after updates) : G", "Generator loss", g_loss, "Discriminator loss", d_loss, "Total:", g_loss + d_loss)
 
         print('Epoch {} ,Saving weights..'.format(epoch))
-        generator.save_weights('generator_weights', True)
-        discriminator.save_weights('discriminator_weights', True)
+        generator.save_weights('generator_weights_64', True)
+        discriminator.save_weights('discriminator_weights_64', True)
 
         plt.clf()
         for i, img in enumerate(generated_images[:9]):
@@ -146,7 +147,7 @@ def train(paths, batch_size, EPOCHS):
             plt.imshow(img)
             plt.axis('off')
         fig.canvas.draw()
-        plt.savefig('Epoch_' + str(epoch) + '.png')
+        plt.savefig('64_Epoch_' + str(epoch) + '.png')
 
 def generate(img_num):
     '''
@@ -186,7 +187,7 @@ if __name__ == "__main__":
     #TODO:5)lower learning rate,e.g eta=0.00005
     #TODO:6)include auxiliary information
     # load_image('data128/0.png')
-    train('test128/',batch_size=32,EPOCHS=2)
+    train('test64/',batch_size=32,EPOCHS=2)
     generate(2)
 
     # args = get_args()
