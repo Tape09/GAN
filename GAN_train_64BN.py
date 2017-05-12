@@ -2,7 +2,7 @@ import argparse
 import cv2
 import os
 import glob
-import GAN_models_64 as GAN_models
+import GAN_models_64BN as GAN_models
 import matplotlib.pyplot as plt
 import numpy as np
 from keras.optimizers import Adam
@@ -153,8 +153,8 @@ def train(paths, batch_size, EPOCHS):
             print("D: {} G: {} P: {}".format(d,g,p))
 
         print('Epoch {} ,Saving weights..'.format(epoch))
-        generator.save_weights('generator_weights_64', True)
-        discriminator.save_weights('discriminator_weights_64', True)
+        generator.save_weights('generator_weights_64BN', True)
+        discriminator.save_weights('discriminator_weights_64BN', True)
 
         plt.clf()
         for i, img in enumerate(generated_images[:9]):
@@ -164,7 +164,7 @@ def train(paths, batch_size, EPOCHS):
             plt.imshow(img)
             plt.axis('off')
         fig.canvas.draw()
-        plt.savefig('result_64/64_Epoch_' + str(epoch) + '.png')
+        plt.savefig('result_64BN/64_Epoch_' + str(epoch) + '.png')
 
 def generate(img_num):
     '''
@@ -181,7 +181,7 @@ def generate(img_num):
     # rmsprop = RMSprop(lr=0.00005, rho=0.9, epsilon=1e-08, decay=0.0)
     # generator.compile(loss='binary_crossentropy', optimizer=rmsprop)
 
-    generator.load_weights('generator_weightsBN')
+    generator.load_weights('generator_weights_64BN')
 
     noise = np.array( [ generate_code() for _ in range(img_num) ] )
 

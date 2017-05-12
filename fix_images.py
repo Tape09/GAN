@@ -47,8 +47,8 @@ def main():
 		img = resize_crop(img,cropsize)
 		cv2.imwrite(directory+"/"+str(i)+".png",img)
 		print("\r"+str(i)+"/"+str(len(all_images_fn)),end="\r")
-		if i>=639:
-			break
+		# if i>=639:
+		# 	break
 
 if __name__=="__main__":
 	main()
