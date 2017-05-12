@@ -92,8 +92,8 @@ def train(paths, batch_size, EPOCHS):
         if epoch == 0:
             if os.path.exists('generator_weights') and os.path.exists('discriminator_weights'):
                 print("Loading saves weights..")
-                generator.load_weights('generator_weights')
-                discriminator.load_weights('discriminator_weights')
+                generator.load_weights('generator_weights_64BN')
+                discriminator.load_weights('discriminator_weights_64BN')
                 print("Finished loading")
             else:
                 pass

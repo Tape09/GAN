@@ -92,8 +92,8 @@ def train(paths, batch_size, EPOCHS):
         if epoch == 0:
             if os.path.exists('generator_weights') and os.path.exists('discriminator_weights'):
                 print("Loading saves weights..")
-                generator.load_weights('generator_weights')
-                discriminator.load_weights('discriminator_weights')
+                generator.load_weights('generator_weights_64')
+                discriminator.load_weights('discriminator_weights_64')
                 print("Finished loading")
             else:
                 pass
@@ -181,7 +181,7 @@ def generate(img_num):
     # rmsprop = RMSprop(lr=0.00005, rho=0.9, epsilon=1e-08, decay=0.0)
     # generator.compile(loss='binary_crossentropy', optimizer=rmsprop)
 
-    generator.load_weights('generator_weightsBN')
+    generator.load_weights('generator_weights_64')
 
     noise = np.array( [ generate_code() for _ in range(img_num) ] )
 
