@@ -2,7 +2,7 @@ import argparse
 import cv2
 import os
 import glob
-import GAN_models_64BN as GAN_models
+import GAN_models_64_diversity as GAN_models
 import matplotlib.pyplot as plt
 import numpy as np
 from keras.optimizers import Adam
@@ -51,26 +51,39 @@ def train(paths, batch_size, EPOCHS):
 
 
     discriminator = GAN_models.discriminator()
-    generator = GAN_models.generator()
-    discriminator_on_generator = GAN_models.generator_containing_discriminator(generator, discriminator)
+    generator_base = GAN_models.generator_base()
+    generator_1 = GAN_models.generator_templete(generator_base)
+    generator_2 = GAN_models.generator_templete(generator_base)
+    generator_3 = GAN_models.generator_templete(generator_base)
+    discriminator_on_generator1 = GAN_models.generator_containing_discriminator(generator_1, discriminator)
+    discriminator_on_generator2 = GAN_models.generator_containing_discriminator(generator_2, discriminator)
+    discriminator_on_generator3 = GAN_models.generator_containing_discriminator(generator_3, discriminator)
 
-    sgd_gen = SGD(lr=0.0002, decay=1e-6, momentum=0.5, nesterov=True)
-    sgd_dis = SGD(lr=0.0002, decay=1e-6, momentum=0.5, nesterov=True)
-    generator.compile(loss='binary_crossentropy', optimizer=sgd_gen)
-    discriminator_on_generator.compile(loss='binary_crossentropy', optimizer=sgd_gen)
-    discriminator.trainable = True
-    discriminator.compile(loss='binary_crossentropy', optimizer=sgd_dis)
-
-
-
-
-
-    # adam_gen=Adam(lr=0.00001, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
-    # adam_dis=Adam(lr=0.00001, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
-    # generator.compile(loss='binary_crossentropy', optimizer=adam_gen)
-    # discriminator_on_generator.compile(loss='binary_crossentropy', optimizer=adam_gen)
+    # sgd_gen = SGD(lr=0.0002, decay=1e-6, momentum=0.5, nesterov=True)
+    # sgd_dis = SGD(lr=0.0002, decay=1e-6, momentum=0.5, nesterov=True)
+    # generator.compile(loss='binary_crossentropy', optimizer=sgd_gen)
+    # discriminator_on_generator.compile(loss='binary_crossentropy', optimizer=sgd_gen)
     # discriminator.trainable = True
-    # discriminator.compile(loss='binary_crossentropy', optimizer=adam_dis)
+    # discriminator.compile(loss='binary_crossentropy', optimizer=sgd_dis)
+
+
+
+
+
+    adam_gen=Adam(lr=0.00001, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
+    adam_dis=Adam(lr=0.00001, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
+    generator_1.compile(loss='binary_crossentropy', optimizer=adam_gen)
+    discriminator_on_generator1.compile(loss='binary_crossentropy', optimizer=adam_gen)
+
+    generator_2.compile(loss='binary_crossentropy', optimizer=adam_gen)
+    discriminator_on_generator2.compile(loss='binary_crossentropy', optimizer=adam_gen)
+
+    generator_3.compile(loss='binary_crossentropy', optimizer=adam_gen)
+    discriminator_on_generator3.compile(loss='binary_crossentropy', optimizer=adam_gen)
+
+
+    discriminator.trainable = True
+    discriminator.compile(loss='binary_crossentropy', optimizer=adam_dis)
 
     # rmsprop_gen = RMSprop(lr=0.00005, rho=0.9, epsilon=1e-08, decay=0.0)
     # rmsprop_dis = RMSprop(lr=0.00005, rho=0.9, epsilon=1e-08, decay=0.0)
@@ -90,10 +103,14 @@ def train(paths, batch_size, EPOCHS):
         print("Epoch {}".format(epoch))
         # load weights on first try (i.e. if process failed previously and we are attempting to recapture lost data)
         if epoch == 0:
-            if os.path.exists('generator_weights_64BN') and os.path.exists('discriminator_weights_64BN'):
+            if os.path.exists('generator_weights_64_diversity1') and os.path.exists('discriminator_weights_64_diversity'):
                 print("Loading saves weights..")
-                generator.load_weights('generator_weights_64BN')
-                discriminator.load_weights('discriminator_weights_64BN')
+                generator_1.load_weights('generator_weights_64_diversity1')
+                discriminator.load_weights('discriminator_weights_64_diversity')
+            if os.path.exists('generator_weights_64_diversity2'):
+                generator_2.load_weights('generator_weights_64_diversity2')
+            if os.path.exists('generator_weights_64_diversity3') :
+                generator_3.load_weights('generator_weights_64_diversity3')
                 print("Finished loading")
             else:
                 pass
@@ -203,12 +220,9 @@ def get_args():
     return args
 
 if __name__ == "__main__":
-    #TODO:1)use non-saturating game
-    #TODO:2)use label smoothing
-    #TODO:3)do not apply sigmoid at the output of D
-    #TODO:4)use RMSProp instead of ADAM
-    #TODO:5)lower learning rate,e.g eta=0.00005
-    #TODO:6)include auxiliary information
+    #TODO: similarity based competing objective for G
+    #TODO: generator identification based objective for D;
+    #TODO: each generator receives a different latent input sampled from the same distribution
     # load_image('data128/0.png')
     train('test64/',batch_size=128,EPOCHS=1200)
     generate(2)

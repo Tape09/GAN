@@ -90,7 +90,7 @@ def train(paths, batch_size, EPOCHS):
         print("Epoch {}".format(epoch))
         # load weights on first try (i.e. if process failed previously and we are attempting to recapture lost data)
         if epoch == 0:
-            if os.path.exists('generator_weights') and os.path.exists('discriminator_weights'):
+            if os.path.exists('generator_weights_64') and os.path.exists('discriminator_weights_64s'):
                 print("Loading saves weights..")
                 generator.load_weights('generator_weights_64')
                 discriminator.load_weights('discriminator_weights_64')
@@ -188,7 +188,7 @@ def generate(img_num):
     print('Generating images..')
     generated_images = [img for img in generator.predict(noise)]
     for index, img in enumerate(generated_images):
-        cv2.imwrite("{}.jpg".format(index), np.uint8(255 * 0.5 * (img + 1.0)))
+        cv2.imwrite("results/{}.jpg".format(index), np.uint8(255 * 0.5 * (img + 1.0)))
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -209,9 +209,12 @@ if __name__ == "__main__":
     #TODO:4)use RMSProp instead of ADAM
     #TODO:5)lower learning rate,e.g eta=0.00005
     #TODO:6)include auxiliary information
+    #TODO:7)use more steps for D
+    #TODO:8)use MAD-GAN
+    #TODO:9)move d,g,p inside while
     # load_image('data128/0.png')
-    train('test64/',batch_size=128,EPOCHS=1200)
-    generate(2)
+    # train('test64/',batch_size=128,EPOCHS=1200)
+    generate(500)
 
     # args = get_args()
     #
