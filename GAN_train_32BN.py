@@ -2,7 +2,7 @@ import argparse
 import cv2
 import os
 import glob
-import GAN_models_64BN as GAN_models
+import GAN_models_32BN as GAN_models
 import matplotlib.pyplot as plt
 import numpy as np
 from keras.optimizers import Adam
@@ -65,7 +65,7 @@ def train(paths, batch_size, EPOCHS):
 
 
 
-
+    #
     # adam_gen=Adam(lr=0.00005, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
     # adam_dis=Adam(lr=0.00005, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
     # generator.compile(loss='binary_crossentropy', optimizer=adam_gen)
@@ -91,29 +91,23 @@ def train(paths, batch_size, EPOCHS):
         print("Epoch {}".format(epoch))
         # load weights on first try (i.e. if process failed previously and we are attempting to recapture lost data)
         if epoch == 0:
-            if os.path.exists('generator_weights_64BN') and os.path.exists('discriminator_weights_64BN'):
+            if os.path.exists('generator_weights_32BN') and os.path.exists('discriminator_weights_32BN'):
                 print("Loading saves weights..")
-                generator.load_weights('generator_weights_64BN')
-                discriminator.load_weights('discriminator_weights_64BN')
+                generator.load_weights('generator_weights_32BN')
+                discriminator.load_weights('discriminator_weights_32BN')
                 print("Finished loading")
             else:
                 pass
-        # d,g,p=0,0,0
+        d,g,p=0,0,0
         # generated_images = None#
         for index, image_batch in chunks(IMAGES,batch_size):
         # for index, image_batch in enumerate(BATCHES):
             print("Epoch {} Batch {}".format(epoch,index))
-
-            # Noise_batch = np.array( [ generate_code() for _ in range(len(image_batch)) ] )
-            Noise_batch = generate_code_batch(len(image_batch))
-            generated_images = generator.predict(Noise_batch)
-            # for i, img in enumerate(generated_images):
-            #     cv2.imwrite('results/{}.jpg'.format(i), np.uint8(255 * 0.5 * (img + 1.0)))
-            image_val = 1
             k=3
-            d_loss = 0
+            image_val = 1
+            d_loss =0
             for i in range(k):
-                # Noise_batch = np.array( [ generate_code() for _ in range(len(image_batch)) ] )
+            # Noise_batch = np.array( [ generate_code() for _ in range(len(image_batch)) ] )
                 Noise_batch = generate_code_batch(len(image_batch))
                 # Noise_batch1 = generate_code_batch(len(image_batch))
 
@@ -125,23 +119,20 @@ def train(paths, batch_size, EPOCHS):
 
                 Xd = np.concatenate((image_batch, generated_images))
                 # Xd1 = np.concatenate((image_batch, generated_images1))
-                yd = [image_val] * len(image_batch) + [0] * len(image_batch)  # labels
+                yd = [image_val] * len(image_batch) + [0] * len(image_batch) # labels
 
                 # print("Training first discriminator..")
                 d_loss += discriminator.train_on_batch(Xd, yd)
-            d_loss /= k
-
-            # Xd = np.concatenate((image_batch, generated_images))
-            # yd = [image_val] * len(image_batch) + [0] * len(image_batch) # labels
-            #
-            # # print("Training first discriminator..")
-            # d_loss = discriminator.train_on_batch(Xd, yd)
+            d_loss /=k
+            # d_loss1 = discriminator.train_on_batch(Xd1, yd)
+            # print("G loss trainable: {} D loss trainable: {}".format(discriminator_on_generator.discrmin p;ug9, discriminator.trainable))
 
             Xg = Noise_batch
             yg = [image_val] * len(image_batch)
 
             # print("Training first generator..")
             g_loss = discriminator_on_generator.train_on_batch(Xg, yg)
+            # g_loss1 = discriminator_on_generator.train_on_batch(Noise_batch1, yg)
 
             print("Generator loss: {} Discriminator loss: {} Total: {}".format(g_loss, d_loss, g_loss + d_loss))
             # if g_loss < d_loss and abs(d_loss - g_loss) > inter_model_margin:#generator is better
@@ -172,10 +163,10 @@ def train(paths, batch_size, EPOCHS):
             #
             # # print("Final batch losses (after updates) : G", "Generator loss", g_loss, "Discriminator loss", d_loss, "Total:", g_loss + d_loss)
             # print("D: {} G: {} P: {}".format(d,g,p))
-        if (epoch+1)%10==0:
+        if (epoch+1)%20==0:
             print('Epoch {} ,Saving weights..'.format(epoch))
-            generator.save_weights('generator_weights_64BN', True)
-            discriminator.save_weights('discriminator_weights_64BN', True)
+            generator.save_weights('generator_weights_32BN', True)
+            discriminator.save_weights('discriminator_weights_32BN', True)
 
         plt.clf()
         for i, img in enumerate(generated_images[:9]):
@@ -185,7 +176,7 @@ def train(paths, batch_size, EPOCHS):
             plt.imshow(img)
             plt.axis('off')
         fig.canvas.draw()
-        plt.savefig('result_64BN/64_Epoch_' + str(epoch) + '.png')
+        plt.savefig('result_32BN/32_Epoch_' + str(epoch) + '.png')
 
 def generate(img_num):
     '''
@@ -224,14 +215,9 @@ def get_args():
     return args
 
 if __name__ == "__main__":
-    #TODO:1)use non-saturating game
-    #TODO:2)use label smoothing
-    #TODO:3)do not apply sigmoid at the output of D
-    #TODO:4)use RMSProp instead of ADAM
-    #TODO:5)lower learning rate,e.g eta=0.00005
-    #TODO:6)include auxiliary information
+
     # load_image('data128/0.png')
-    train('test64/',batch_size=128,EPOCHS=1200)
+    train('test32/',batch_size=128,EPOCHS=1200)
     # generate(2)
 
     # args = get_args()

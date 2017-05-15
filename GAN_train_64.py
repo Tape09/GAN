@@ -54,8 +54,8 @@ def train(paths, batch_size, EPOCHS):
     generator = GAN_models.generator()
     discriminator_on_generator = GAN_models.generator_containing_discriminator(generator, discriminator)
 
-    sgd_gen = SGD(lr=0.0002, decay=1e-6, momentum=0.5, nesterov=True)
-    sgd_dis = SGD(lr=0.0002, decay=1e-6, momentum=0.5, nesterov=True)
+    sgd_gen = SGD(lr=0.0002, decay=0, momentum=0.5, nesterov=True)
+    sgd_dis = SGD(lr=0.0002, decay=0, momentum=0.5, nesterov=True)
     generator.compile(loss='binary_crossentropy', optimizer=sgd_gen)
     discriminator_on_generator.compile(loss='binary_crossentropy', optimizer=sgd_gen)
     discriminator.trainable = True
@@ -65,8 +65,8 @@ def train(paths, batch_size, EPOCHS):
 
 
 
-    # adam_gen=Adam(lr=0.00001, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
-    # adam_dis=Adam(lr=0.00001, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
+    # adam_gen=Adam(lr=0.00002, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
+    # adam_dis=Adam(lr=0.00002, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
     # generator.compile(loss='binary_crossentropy', optimizer=adam_gen)
     # discriminator_on_generator.compile(loss='binary_crossentropy', optimizer=adam_gen)
     # discriminator.trainable = True
@@ -90,7 +90,8 @@ def train(paths, batch_size, EPOCHS):
         print("Epoch {}".format(epoch))
         # load weights on first try (i.e. if process failed previously and we are attempting to recapture lost data)
         if epoch == 0:
-            if os.path.exists('generator_weights_64') and os.path.exists('discriminator_weights_64s'):
+            # print(os.path.exists('generator_weights_64'), os.path.exists('discriminator_weights_64'))
+            if os.path.exists('generator_weights_64') and os.path.exists('discriminator_weights_64'):
                 print("Loading saves weights..")
                 generator.load_weights('generator_weights_64')
                 discriminator.load_weights('discriminator_weights_64')
@@ -164,7 +165,7 @@ def train(paths, batch_size, EPOCHS):
             plt.imshow(img)
             plt.axis('off')
         fig.canvas.draw()
-        plt.savefig('result_64/64_Epoch_' + str(epoch) + '.png')
+        plt.savefig('result_64/64_Epoch_' + str(epoch+161) + '.png')
 
 def generate(img_num):
     '''
@@ -172,11 +173,11 @@ def generate(img_num):
     '''
     generator = GAN_models.generator()
 
-    # adam=Adam(lr=0.00001, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
+    # adam=Adam(lr=0.00002, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
     # generator.compile(loss='binary_crossentropy', optimizer=adam)
 
-    sgd_gen = SGD(lr=0.0002, decay=1e-6, momentum=0.5, nesterov=True)
-    generator.compile(loss='binary_crossentropy', optimizer=sgd_gen)
+    sgd_gen = SGD(lr=0.0002, decay=0, momentum=0.5, nesterov=True)
+    generator.compileile(loss='binary_crossentropy', optimizer=sgd_gen)
 
     # rmsprop = RMSprop(lr=0.00005, rho=0.9, epsilon=1e-08, decay=0.0)
     # generator.compile(loss='binary_crossentropy', optimizer=rmsprop)
@@ -213,8 +214,8 @@ if __name__ == "__main__":
     #TODO:8)use MAD-GAN
     #TODO:9)move d,g,p inside while
     # load_image('data128/0.png')
-    # train('test64/',batch_size=128,EPOCHS=1200)
-    generate(500)
+    train('test64/',batch_size=128,EPOCHS=1200)
+    # generate(500)
 
     # args = get_args()
     #

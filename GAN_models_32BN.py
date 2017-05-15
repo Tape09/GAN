@@ -8,23 +8,23 @@ from sklearn.utils import shuffle
 def discriminator():
     model = Sequential()
     #1->(32,32,128)
-    model.add(Convolution2D(128, (5, 5), strides=(2, 2), input_shape=(64, 64, 3), padding='same'))
-    model.add(BatchNormalization())
+    model.add(Convolution2D(128, (5, 5), strides=(2, 2), input_shape=(32, 32, 3), padding='same'))
+    # model.add(BatchNormalization())
     model.add(LeakyReLU(0.2))
     model.add(Dropout(0.2))
     #2->(16,16,256)
     model.add(Convolution2D(256, (5, 5), strides=(2, 2), padding='same'))
-    model.add(BatchNormalization())
+    # model.add(BatchNormalization())
     model.add(LeakyReLU(0.2))
     model.add(Dropout(0.2))
     #3->(8,8,512),one filter:5*5*256, 512 filters in total
     model.add(Convolution2D(512, (5, 5), strides=(2, 2), padding='same'))
-    model.add(BatchNormalization())
+    # model.add(BatchNormalization())
     model.add(LeakyReLU(0.2))
     model.add(Dropout(0.2))
     #4->(4,4,1024)
     model.add(Convolution2D(1024, (5, 5), strides=(2, 2), padding='same'))
-    model.add(BatchNormalization())
+    # model.add(BatchNormalization())
     model.add(LeakyReLU(0.2))
     model.add(Dropout(0.2))
     #final
@@ -52,17 +52,8 @@ def generator(inputdim=100, xdim=4, ydim=4):
     model.add(BatchNormalization())
     model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
-    model.add(Convolution2D(128, (5, 5), padding='same'))
-    #4->64*64*3
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(UpSampling2D(size=(2, 2)))
     model.add(Convolution2D(3, (5, 5), padding='same'))
-    # #5
-    # model.add(BatchNormalization())
-    # model.add(Activation('relu'))
-    # model.add(UpSampling2D(size=(2, 2)))
-    # model.add(Convolution2D(3, (5, 5), padding='same'))
+
     #final
     model.add(Activation('tanh'))
     return model

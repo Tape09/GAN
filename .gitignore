@@ -1,13 +1,12 @@
 *.pyc
 /data/
 /data*/
-/.idea
-/discriminator_weights
-/generator_weights
+/.idea*
+/discriminator_weights*
+/generator_weights*
 /playground.py
 /results/
 /discriminator_weights_64
 /generator_weights_64
-/test64/
-/test128/
+/test*/
 *.png
