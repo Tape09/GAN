@@ -39,13 +39,13 @@ def main():
 	if not os.path.exists(directory):
 		os.makedirs(directory)
 
-	all_images_fn = list(glob.iglob('data/Images/**/*.jpg', recursive=True))
+	all_images_fn = list(glob.iglob('face/*.JPEG', recursive=True))
 	print(len(all_images_fn))
 
 	for i,fn in enumerate(all_images_fn):
 		img = cv2.imread(fn)
 		img = resize_crop(img,cropsize)
-		cv2.imwrite(directory+"/"+str(i)+".png",img)
+		cv2.imwrite(directory+"/"+str(i)+".jpg",img)
 		print("\r"+str(i)+"/"+str(len(all_images_fn)),end="\r")
 		# if i>=639:
 		# 	break
