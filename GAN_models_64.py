@@ -29,7 +29,7 @@ def discriminator():
     # model.add(Activation('sigmoid'))
     return model
 
-def generator(inputdim=100, xdim=4, ydim=4):
+def generator(inputdim=120, xdim=4, ydim=4):
     model = Sequential()
     #pre, 100->1024*4*4
     model.add(Dense(input_dim=inputdim, units=1024 * xdim * ydim))

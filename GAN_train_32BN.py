@@ -26,7 +26,8 @@ def load_image(path):
     # # print(img.shape)
     # # print(np.mean(img,axis=2))
     # print(type(img))
-    img = np.float32((img/ 127.5) - 1)#zero centering the picture
+    # img = np.float32((img/ 127.5) - 1)#zero centering the picture
+    img = img*2.-1
     return img
 
 def load_shuffle(paths,tail='*.png'):
@@ -115,11 +116,11 @@ def train(paths, batch_size, EPOCHS):
         gLosses.append(g_loss)
 
         # print("D loss: {} G loss: {}".format(d_loss,g_loss))
-        if (epoch+1)%20000==0:
+        if (epoch+1)%1000==0:
             print('Epoch {} ,Saving weights..'.format(epoch))
             generator.save_weights('generator_weights_32BN', True)
             discriminator.save_weights('discriminator_weights_32BN', True)
-        if (epoch + 1) % 2000 == 0:
+        if (epoch + 1) % 100 == 0:
             plot_generated_images(generator=generator,epoch=epoch)
 
 
@@ -147,7 +148,7 @@ def generate(img_num):
     print('Generating images..')
     generated_images = [img for img in generator.predict(noise)]
     for index, img in enumerate(generated_images):
-        cv2.imwrite("{}.jpg".format(index), np.uint8(255 * 0.5 * (img + 1.0)))
+        cv2.imwrite("{}.jpg".format(index), np.float32(0.5 * (img + 1.0)))
 
 def plot_loss(d,g):
     plt.figure(figsize=(10,8))
@@ -161,12 +162,12 @@ def plot_generated_images(generator,epoch,path ='result_32BN'):
     fig = plt.figure()
     Noise_batch = generate_code_batch(9)
     generated_images = generator.predict(Noise_batch)
-    print(generated_images.shape)
+    # print(generated_images.shape)
     plt.clf()
     for i, img in enumerate(generated_images[:9]):
         i = i + 1
         plt.subplot(3, 3, i)
-        img = np.uint8(255 * 0.5 * (img + 1.0))
+        img = np.float32(0.5 * (img + 1.0))
         plt.imshow(img)
         plt.axis('off')
     fig.canvas.draw()
@@ -183,5 +184,5 @@ if __name__ == "__main__":
     # TODO: 7)use reference BN instead of normal BN, cuz normal BN will introduce intra samples correlation
     # TODO: 8) defining the fenerator objective with respect to an unrolled optimization of D
     # load_image('data128/0.png')
-    train('test32/',batch_size=128,EPOCHS=40000)
+    train('test32/',batch_size=128,EPOCHS=100000)
     # generate(2)
