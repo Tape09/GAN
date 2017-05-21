@@ -42,7 +42,7 @@ def load_shuffle(paths,tail='*.png'):
 def generate_code(n=120):
     #120 breeds
     #latent code for generating pics
-    z = np.random.uniform(-1, 1, n)
+    z = np.random.uniform(0, 1, n)
     # z = np.random.normal(0, 1, n)
     return z
 
@@ -65,7 +65,7 @@ def train(paths, batch_size, EPOCHS):
     # discriminator.compile(loss='binary_crossentropy', optimizer=sgd_dis)
 
     adam_gen=Adam(lr=0.0001)
-    adam_dis=Adam(lr=0.0001)
+    adam_dis=Adam(lr=0.001)
     generator.compile(loss='binary_crossentropy', optimizer=adam_gen)
     discriminator_on_generator.compile(loss='binary_crossentropy', optimizer=adam_gen)
     discriminator.trainable = True
@@ -185,5 +185,5 @@ if __name__ == "__main__":
     # TODO: 7)use reference BN instead of normal BN, cuz normal BN will introduce intra samples correlation
     # TODO: 8) defining the fenerator objective with respect to an unrolled optimization of D
     # load_image('data128/0.png')
-    train('test32/',batch_size=128,EPOCHS=10000)
+    train('test32/',batch_size=128,EPOCHS=250000)
     # generate(2)
