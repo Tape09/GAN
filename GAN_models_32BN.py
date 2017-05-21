@@ -156,24 +156,25 @@ def generator(inputdim=120, xdim=4, ydim=4):
     #pre, 100->1024*4*4
     model.add(Dense(input_dim=inputdim, units=512 * xdim * ydim))
     #1)4*4*1024->8*8*512
-    model.add(BatchNormalization())#batch norm in G can cause strong intra-class correlation
+    # model.add(BatchNormalization())#batch norm in G can cause strong intra-class correlation
     model.add(Activation('relu'))
     model.add(Reshape((xdim, ydim,512), input_shape=(inputdim,)))
     model.add(UpSampling2D(size=(2, 2)))
     model.add(Convolution2D(256, (3, 3), padding='same'))
     #2)->16*16*256
-    model.add(BatchNormalization())
+    # model.add(BatchNormalization())
     model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
     model.add(Convolution2D(128, (3, 3), padding='same'))
     #3->32*32*128
-    model.add(BatchNormalization())
+    # model.add(BatchNormalization())
     model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
     model.add(Convolution2D(3, (3, 3), padding='same'))
 
     #final
-    model.add(Activation('tanh'))
+    # model.add(Activation('tanh'))
+    model.add(Activation('sigmoid'))
     return model
 
     # # 8. Compile model

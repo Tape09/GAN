@@ -27,7 +27,7 @@ def load_image(path):
     # # print(np.mean(img,axis=2))
     # print(type(img))
     # img = np.float32((img/ 127.5) - 1)#zero centering the picture
-    img = img*2.-1
+    # img = img*2.-1
     return img
 
 def load_shuffle(paths,tail='*.png'):
@@ -65,7 +65,7 @@ def train(paths, batch_size, EPOCHS):
     # discriminator.compile(loss='binary_crossentropy', optimizer=sgd_dis)
 
     adam_gen=Adam(lr=0.0001)
-    adam_dis=Adam(lr=0.001)
+    adam_dis=Adam(lr=0.0001)
     generator.compile(loss='binary_crossentropy', optimizer=adam_gen)
     discriminator_on_generator.compile(loss='binary_crossentropy', optimizer=adam_gen)
     discriminator.trainable = True
@@ -83,6 +83,7 @@ def train(paths, batch_size, EPOCHS):
     gLosses = []
     k = 1
     image_val = 0.9
+    fig = plt.figure()
     for epoch in tqdm(range(EPOCHS)):
         # print("Epoch {}".format(epoch))
         # load weights on first try (i.e. if process failed previously and we are attempting to recapture lost data)
@@ -116,12 +117,12 @@ def train(paths, batch_size, EPOCHS):
         gLosses.append(g_loss)
 
         # print("D loss: {} G loss: {}".format(d_loss,g_loss))
-        if (epoch+1)%1000==0:
+        if (epoch+1)%5000==0:
             print('Epoch {} ,Saving weights..'.format(epoch))
             generator.save_weights('generator_weights_32BN', True)
             discriminator.save_weights('discriminator_weights_32BN', True)
-        if (epoch + 1) % 100 == 0:
-            plot_generated_images(generator=generator,epoch=epoch)
+        if (epoch + 1) % 500 == 0:
+            plot_generated_images(fig,generator=generator,epoch=epoch)
 
 
     plot_loss(dLosses,gLosses)
@@ -157,9 +158,9 @@ def plot_loss(d,g):
     plt.legend()
     plt.show()
 
-def plot_generated_images(generator,epoch,path ='result_32BN'):
+def plot_generated_images(fig,generator,epoch,path ='result_32BN'):
     # print("saving snapshoot")
-    fig = plt.figure()
+
     Noise_batch = generate_code_batch(9)
     generated_images = generator.predict(Noise_batch)
     # print(generated_images.shape)
@@ -167,7 +168,7 @@ def plot_generated_images(generator,epoch,path ='result_32BN'):
     for i, img in enumerate(generated_images[:9]):
         i = i + 1
         plt.subplot(3, 3, i)
-        img = np.float32(0.5 * (img + 1.0))
+        # img = np.float32(0.5 * (img + 1.0))
         plt.imshow(img)
         plt.axis('off')
     fig.canvas.draw()
@@ -184,5 +185,5 @@ if __name__ == "__main__":
     # TODO: 7)use reference BN instead of normal BN, cuz normal BN will introduce intra samples correlation
     # TODO: 8) defining the fenerator objective with respect to an unrolled optimization of D
     # load_image('data128/0.png')
-    train('test32/',batch_size=128,EPOCHS=100000)
+    train('test32/',batch_size=128,EPOCHS=10000)
     # generate(2)
