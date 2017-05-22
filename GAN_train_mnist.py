@@ -31,7 +31,7 @@ def load_image(path):
     # # print(np.mean(img,axis=2))
     # print(type(img))
     # img = np.float32((img/ 127.5) - 1)#zero centering the picture
-    img = img*2.-1
+    # img = img*2.-1
     return img
 
 def load_shuffle(paths,tail='*.png'):
@@ -43,7 +43,7 @@ def load_shuffle(paths,tail='*.png'):
     print("Loading completed")
     return IMAGES
 
-def generate_code(n=20):
+def generate_code(n=100):
     #120 breeds
     #latent code for generating pics
     z = np.random.uniform(-1, 1, n)
@@ -95,10 +95,10 @@ def train(paths, batch_size, EPOCHS):
         # print("Epoch {}".format(epoch))
         # load weights on first try (i.e. if process failed previously and we are attempting to recapture lost data)
         if epoch == 0:
-            if os.path.exists('generator_weights_32BN') and os.path.exists('discriminator_weights_32BN'):
+            if os.path.exists('generator_weights_mnist') and os.path.exists('discriminator_weights_mnist'):
                 print("Loading saves weights..")
-                generator.load_weights('generator_weights_32BN')
-                discriminator.load_weights('discriminator_weights_32BN')
+                generator.load_weights('generator_weights_mnist')
+                discriminator.load_weights('discriminator_weights_mnist')
                 print("Finished loading")
             else:
                 pass
@@ -126,11 +126,11 @@ def train(paths, batch_size, EPOCHS):
         gLosses.append(g_loss)
 
         # print("D loss: {} G loss: {}".format(d_loss,g_loss))
-        if (epoch+1) % 5==0:
+        if (epoch+1) % 2000==0:
             print('Epoch {} ,Saving weights..'.format(epoch))
-            generator.save_weights('generator_weights_32BN', True)
-            discriminator.save_weights('discriminator_weights_32BN', True)
-        if (epoch + 1) % 5 == 0:
+            generator.save_weights('generator_weights_mnist', True)
+            discriminator.save_weights('discriminator_weights_mnist', True)
+        if (epoch + 1) % 100 == 0:
             plot_generated_images(fig,generator=generator,epoch=epoch)
 
 
@@ -142,23 +142,25 @@ def generate(img_num):
     '''
     generator = GAN_models.generator()
 
-    # adam=Adam(lr=0.00005, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
-    # generator.compile(loss='binary_crossentropy', optimizer=adam)
+    adam=Adam(lr=0.00001, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
+    generator.compile(loss='binary_crossentropy', optimizer=adam)
 
-    sgd_gen = SGD(lr=0.0002, decay=0, momentum=0.5, nesterov=True)
-    generator.compile(loss='binary_crossentropy', optimizer=sgd_gen)
+    # sgd_gen = SGD(lr=0.0002, decay=0, momentum=0.5, nesterov=True)
+    # generator.compile(loss='binary_crossentropy', optimizer=sgd_gen)
 
     # rmsprop = RMSprop(lr=0.00005, rho=0.9, epsilon=1e-08, decay=0.0)
     # generator.compile(loss='binary_crossentropy', optimizer=rmsprop)
 
-    generator.load_weights('generator_weights_64BN')
+    generator.load_weights('generator_weights_mnist')
 
     noise = np.array( [ generate_code() for _ in range(img_num) ] )
 
     print('Generating images..')
     generated_images = [img for img in generator.predict(noise)]
     for index, img in enumerate(generated_images):
-        cv2.imwrite("{}.jpg".format(index), np.float32(0.5 * (img + 1.0)))
+        # cv2.imwrite("{}.jpg".format(index), np.float32(0.5 * (img + 1.0)))
+        # plt.imshow(img)
+        plt.savefig("result_mnist/generated{}".format(index))
 
 def plot_loss(d,g):
     plt.figure(figsize=(10,8))
@@ -177,7 +179,7 @@ def plot_generated_images(fig,generator,epoch,path ='result_mnist'):
     for i, img in enumerate(generated_images[:9]):
         i = i + 1
         plt.subplot(3, 3, i)
-        img = np.float32(0.5 * (img + 1.0))
+        # img = np.float32(0.5 * (img + 1.0))
         plt.imshow(img[:,:,0], cmap = plt.get_cmap('gray'))
         plt.axis('off')
     fig.canvas.draw()
@@ -192,7 +194,7 @@ if __name__ == "__main__":
     # TODO:5)lower learning rate,e.g eta=0.00005
     # TODO:6)include auxiliary information
     # TODO: 7)use reference BN instead of normal BN, cuz normal BN will introduce intra samples correlation
-    # TODO: 8) defining the fenerator objective with respect to an unrolled optimization of D
+    # TODO: 8) defining the generator objective with respect to an unrolled optimization of D
     # load_image('data128/0.png')
     train('test32/',batch_size=64,EPOCHS=2000)
-    # generate(2)
+    # generate(20)
