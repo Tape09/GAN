@@ -210,9 +210,9 @@ if __name__ == "__main__":
     # TODO: 8) defining the fenerator objective with respect to an unrolled optimization of D
     # load_image('data128/0.png')
     # train('test32/',batch_size=128,EPOCHS=20000)
-    # generate(100)
-    imgs = load_shuffle("test32")
-    plot_100(imgs, "real")
+    generate(100)
+    # imgsgit = load_shuffle("test32")
+    # plot_100(imgs, "real")
     # imgs = load_shuffle("results")
     # plot_100(imgs, "generated")
 
