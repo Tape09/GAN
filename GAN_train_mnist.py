@@ -126,11 +126,11 @@ def train(paths, batch_size, EPOCHS):
         gLosses.append(g_loss)
 
         # print("D loss: {} G loss: {}".format(d_loss,g_loss))
-        if (epoch+1) % 2000==0:
+        if (epoch+1) % 250==0:
             print('Epoch {} ,Saving weights..'.format(epoch))
             generator.save_weights('generator_weights_mnist', True)
             discriminator.save_weights('discriminator_weights_mnist', True)
-        if (epoch + 1) % 100 == 0:
+        if (epoch + 1) % 50 == 0:
             plot_generated_images(fig,generator=generator,epoch=epoch)
 
 
@@ -186,6 +186,9 @@ def plot_generated_images(fig,generator,epoch,path ='result_mnist'):
     path += '/mnist_epoch_' + str(epoch) + '.png'
     plt.savefig(path)
 
+
+
+
 if __name__ == "__main__":
     # TODO:1)use non-saturating game
     # TODO:2)use label smoothing
@@ -196,5 +199,5 @@ if __name__ == "__main__":
     # TODO: 7)use reference BN instead of normal BN, cuz normal BN will introduce intra samples correlation
     # TODO: 8) defining the generator objective with respect to an unrolled optimization of D
     # load_image('data128/0.png')
-    train('test32/',batch_size=64,EPOCHS=2000)
+    train('test32/',batch_size=4,EPOCHS=250)
     # generate(20)

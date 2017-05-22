@@ -133,23 +133,47 @@ def generate(img_num):
     '''
     generator = GAN_models.generator()
 
-    # adam=Adam(lr=0.00005, beta_1=0.0005, beta_2=0.999, epsilon=1e-08)
-    # generator.compile(loss='binary_crossentropy', optimizer=adam)
+    adam=Adam(lr=0.0001)
+    generator.compile(loss='binary_crossentropy', optimizer=adam)
 
-    sgd_gen = SGD(lr=0.0002, decay=0, momentum=0.5, nesterov=True)
-    generator.compile(loss='binary_crossentropy', optimizer=sgd_gen)
+    # sgd_gen = SGD(lr=0.0002, decay=0, momentum=0.5, nesterov=True)
+    # generator.compile(loss='binary_crossentropy', optimizer=sgd_gen)
 
     # rmsprop = RMSprop(lr=0.00005, rho=0.9, epsilon=1e-08, decay=0.0)
     # generator.compile(loss='binary_crossentropy', optimizer=rmsprop)
 
-    generator.load_weights('generator_weights_64BN')
+    generator.load_weights('generator_weights_32BN')
 
     noise = np.array( [ generate_code() for _ in range(img_num) ] )
 
     print('Generating images..')
     generated_images = [img for img in generator.predict(noise)]
     for index, img in enumerate(generated_images):
-        cv2.imwrite("{}.jpg".format(index), np.float32(0.5 * (img + 1.0)))
+        # cv2.imwrite("{}.jpg".format(index), np.float32(0.5 * (img + 1.0)))
+        # plt.imshow(img)
+        # plt.axis('off')
+        result = Image.fromarray((img * 255).astype(np.uint8))
+        result.save('results/{}.png'.format(index))
+
+def plot_100(imgs,tail):
+    imgs = imgs[:100]
+    fig = plt.figure(figsize=(10,10))
+    a = []
+    for i, img in enumerate(imgs):
+        i = i + 1
+        a.append(plt.subplot(10, 10, i))
+        # img = np.float32(0.5 * (img + 1.0))
+        plt.imshow(img)
+        plt.axis('off')
+
+    for ax in a:
+        ax.set_xticklabels([])
+        ax.set_yticklabels([])
+        ax.set_aspect('equal')
+    # plt.tight_layout(pad=0, w_pad=0, h_pad=0)
+    fig.subplots_adjust(wspace=0, hspace=0)
+    # fig.canvas.draw()
+    plt.savefig("{}".format(tail))
 
 def plot_loss(d,g):
     plt.figure(figsize=(10,8))
@@ -185,5 +209,10 @@ if __name__ == "__main__":
     # TODO: 7)use reference BN instead of normal BN, cuz normal BN will introduce intra samples correlation
     # TODO: 8) defining the fenerator objective with respect to an unrolled optimization of D
     # load_image('data128/0.png')
-    train('test32/',batch_size=128,EPOCHS=20000)
-    # generate(2)
+    # train('test32/',batch_size=128,EPOCHS=20000)
+    # generate(100)
+    imgs = load_shuffle("test32")
+    plot_100(imgs, "real")
+    # imgs = load_shuffle("results")
+    # plot_100(imgs, "generated")
+
