@@ -11,3 +11,6 @@
 /test*/
 *.png
 /face*/
+/*result*/
+*result*
+*.mp4

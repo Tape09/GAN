@@ -154,6 +154,43 @@ def generate(img_num):
         # plt.axis('off')
         result = Image.fromarray((img * 255).astype(np.uint8))
         result.save('results/{}.png'.format(index))
+		
+		
+def generate_path(img_num):
+    '''
+        Generate new images based on trained model.
+    '''
+    generator = GAN_models.generator()
+
+    adam=Adam(lr=0.0001)
+    generator.compile(loss='binary_crossentropy', optimizer=adam)
+
+    # sgd_gen = SGD(lr=0.0002, decay=0, momentum=0.5, nesterov=True)
+    # generator.compile(loss='binary_crossentropy', optimizer=sgd_gen)
+
+    # rmsprop = RMSprop(lr=0.00005, rho=0.9, epsilon=1e-08, decay=0.0)
+    # generator.compile(loss='binary_crossentropy', optimizer=rmsprop)
+
+    step_len = 0.01;
+    generator.load_weights('generator_weights_32BN')
+    
+    seed_code = generate_code();
+    code = seed_code;
+    a = np.random.uniform(0.0, 0.7, 120);
+    b = np.random.uniform(0.0, 2*np.pi, 120);
+    theta_range = np.linspace(0,2*np.pi,img_num);
+	
+    for i,th in tqdm(enumerate(theta_range)):
+        code = a * np.sin(b + th);
+        img = generator.predict(np.array([code]))[0];
+        result = Image.fromarray((img * 255).astype(np.uint8))
+        result.save('results/{}.png'.format(i))
+
+			
+
+        
+
+
 
 def plot_100(imgs,tail):
     imgs = imgs[:100]
@@ -210,9 +247,12 @@ if __name__ == "__main__":
     # TODO: 8) defining the fenerator objective with respect to an unrolled optimization of D
     # load_image('data128/0.png')
     # train('test32/',batch_size=128,EPOCHS=20000)
-    generate(100)
+    # generate(100)
     # imgsgit = load_shuffle("test32")
+    # generate(100)
+    # imgs = load_shuffle("test32")
     # plot_100(imgs, "real")
     # imgs = load_shuffle("results")
     # plot_100(imgs, "generated")
+    generate_path(1000);
 
